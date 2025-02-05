@@ -87,11 +87,20 @@
             border-radius: 10px;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             position: relative;
+            cursor: pointer;
         }
         .photos img:hover {
             transform: scale(3);
             z-index: 3; /* Перемещаем изображение поверх других элементов */
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .photos img.enlarged {
+            transform: scale(5);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(5); /* Открытие в центре экрана */
+            z-index: 9999;
         }
         .love-text {
             font-size: 28px;
@@ -137,15 +146,15 @@
         <div class="message" id="message">
             <p>Что такое любовь?</p>
             <div class="photos">
-                <img src="21.jpg" alt="Фото 1">
-                <img src="22.jpg" alt="Фото 2">
-                <img src="23.jpg" alt="Фото 3">
-                <img src="24.jpg" alt="Фото 4">
-                <img src="27.jpg" alt="Фото 5">
-                <img src="26.jpg" alt="Фото 6">
-                <img src="25.jpg" alt="Фото 7">
-                <img src="28.jpg" alt="Фото 7">
-                <img src="29.jpg" alt="Фото 7">
+                <img src="21.jpg" alt="Фото 1" onclick="enlargeImage(this)">
+                <img src="22.jpg" alt="Фото 2" onclick="enlargeImage(this)">
+                <img src="23.jpg" alt="Фото 3" onclick="enlargeImage(this)">
+                <img src="24.jpg" alt="Фото 4" onclick="enlargeImage(this)">
+                <img src="27.jpg" alt="Фото 5" onclick="enlargeImage(this)">
+                <img src="26.jpg" alt="Фото 6" onclick="enlargeImage(this)">
+                <img src="25.jpg" alt="Фото 7" onclick="enlargeImage(this)">
+                <img src="28.jpg" alt="Фото 8" onclick="enlargeImage(this)">
+                <img src="29.jpg" alt="Фото 9" onclick="enlargeImage(this)">
             </div>
             <p class="love-text">Любовь - это ты <span class="heart" id="heart">❤️</span></p>
         </div>
@@ -162,7 +171,23 @@
                 }, 500);
             }, 500);
         }
-        
+
+        function enlargeImage(img) {
+            // Убираем увеличение с других изображений
+            let allImages = document.querySelectorAll('.photos img');
+            allImages.forEach(image => {
+                image.classList.remove('enlarged');
+            });
+            
+            // Увеличиваем выбранное изображение
+            img.classList.add('enlarged');
+
+            // Добавляем обработчик клика для уменьшения изображения
+            img.onclick = function() {
+                img.classList.remove('enlarged');
+            };
+        }
     </script>
 </body>
 </html>
+
